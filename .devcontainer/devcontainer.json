@@ -2,5 +2,7 @@
 	"name": "librelane-base-image",
     "image": "ghcr.io/chipusm/librelane-base-image:latest",
 
-    "postCreateCommand": "git submodule update --init --recursive"
+    "remoteUser": "designer",
+
+    "postCreateCommand": "sudo chown -R designer:designer /workspaces && git submodule update --init --recursive"
 }

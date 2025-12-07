@@ -2,7 +2,10 @@
 	"name": "librelane-base-image",
     "image": "ghcr.io/chipusm/librelane-base-image:latest",
 
-    "remoteUser": "designer",
+    "containerEnv": {
+        "PDK": "ihp-sg13g2",
+        "PDK_ROOT": "/workspace/IHP-Open-PDK"
+    },
 
-    "postCreateCommand": "sudo chown -R designer:designer /workspaces && git submodule update --init --recursive"
+    "postCreateCommand": "git submodule update --init --recursive"
 }

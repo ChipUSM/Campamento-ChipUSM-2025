@@ -4,7 +4,7 @@
 
     "containerEnv": {
         "PDK": "ihp-sg13g2",
-        "PDK_ROOT": "/workspace/IHP-Open-PDK"
+        "PDK_ROOT": "/workspaces/Campamento-ChipUSM-2025/IHP-Open-PDK"
     },
 
     "postCreateCommand": "git submodule update --init --recursive"

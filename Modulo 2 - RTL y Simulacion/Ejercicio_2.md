@@ -1,24 +1,22 @@
 # Simulacion con Verilator
 
 
-Estando en la carpeta croc seguir los siguientes pasos:
+En la carpeta Ejercicio_2 encontraran una simulacion de un Adder de 8 Bits. ¿Que archivos componen la simulacion?
 
-```
-sh > git checkout ex01
-sh > cd part1/adder8
-```
+Una vez idetifiquen los componentes de la simulacion, indagen en el testbench:
 
-Cuantos ciclos necesita el diseño antes de reiniciarse?
+¿Cuantos ciclos necesita el diseño para terminar la simulacion?
+
+
 
 Luego para correr la simulacion:
 
 ```
-sh > verilator /*source files' and testbench's name*/ --top /*top module name*/ --binary -Wno-fatal --trace --trace-structs
+sh > verilator /*Archivos fuente y testbench*/ --top /*Nombre del modulo top*/ --binary -Wno-fatal --trace --trace-structs
 sh > ./obj_dir/Vtb_adder8
 ```
 
 La simulacion corre de manera adecuada? En caso de que no, que produce errores?
-
 
 # Solucion  : (en un commit posterior la borrare xdd)
  

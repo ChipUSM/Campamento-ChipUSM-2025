@@ -1,6 +1,8 @@
 # Campamento-ChipUSM-2025
 Este repositorio sirve el propósito de almacenar todo el contenido a ver durante la tercera edición del Campamento ChipUSM. Este contenido se encuentra separado por ramas/branches según el track el cual uno esté inscrito.
-![Afiche promocional](./afiche.png)
+<p align="right">
+  <img src="./Afiche.png" alt="Afiche promocional" width="200"/>
+</p>
 ## Clonando repositorios
 **Track Digital**
 ```bash

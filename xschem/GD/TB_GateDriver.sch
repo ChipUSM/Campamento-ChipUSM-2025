@@ -1,9 +1,9 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 T {PULSE(VL VH TD TR TF PW PER PHASE) 
 } -820 -760 0 0 0.4 0.4 {}
@@ -166,8 +166,8 @@ C {lab_pin.sym} -260 -560 0 0 {name=p3 sig_type=std_logic lab=Vdd}
 C {lab_pin.sym} -230 -560 0 1 {name=p6 sig_type=std_logic lab=VH
 value=\{VH\}}
 C {lab_pin.sym} -110 -490 0 1 {name=p7 sig_type=std_logic lab=Vg}
-C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM1.sym} -280 -450 0 0 {name=X1}
-C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM2.sym} -280 -250 0 0 {name=X2}
+C {../GD/GDM1.sym} -280 -450 0 0 {name=X1}
+C {../GD/GDM2.sym} -280 -250 0 0 {name=X2}
 C {capa.sym} -110 -260 0 0 {name=C2
 m=1
 value=\{C_M2\}

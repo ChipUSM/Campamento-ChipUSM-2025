@@ -1,0 +1,102 @@
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/Manual_Instrucciones/Guia_Save&let.sch
+**.subckt Guia_Save&let
+V1 VDD GND VDD
+V2 VSS GND 0
+x1 VDD V_3rd V_1st VSS Simbolo_Support_1
+x3 VDD V_2nd V_3rd VSS Simbolo_Support_1
+XM1 Vinv V_2nd VDD VDD sg13_lv_pmos w=1.0u l=0.15u ng=1 m=1
+XM2 net1 net2 net3 net4 sg13_lv_nmos w=1.0u l=0.15u ng=1 m=1
+XRoberto1 Vinv V_2nd VSS VSS sg13_lv_nmos w=1.0u l=0.15u ng=1 m=1
+x_Middle VDD V_1st V_2nd VSS Simbolo_Support_1
+XRoberto net5 net6 net7 net8 sg13_lv_nmos w=1.0u l=0.15u ng=1 m=1
+**** begin user architecture code
+
+
+.param VDD = 1.8
+.ic v(SENS_IN) = 0
+.OPTION CSHUNT=0.05e-12
+.save all
+.OPTION ABSTOL=1e-15.
+*.OPTION GMIN=1.0e-12.
+.OPTION ITL1=1e5
+*.OPTION RSHUNT=1e12
+.OPTION RELTOL=1e-5
+.options acct
+
+
+.control
+
+*Ejemplos de un par de saves (PUEDEN PONERSE ANTES O DESPUES DEL .CONTROL, PERO ANTES DEL tran/dc/ac)
+
+save @n.xroberto1_nsg13_lv_nmos[vth]
+save @n.xm1_nsg13_lv_pmos[vth]
+
+
+save @n.x3.xm2.nsg13_lv_nmos[ids]
+save @n.x3.xm1.nsg13_lv_pmos[ids]
+
+save @n.x_Middle.xm2.nsg13_lv_nmos[gds]
+save @n.x_Middle.xm1.nsg13_lv_pmos[gds]
+
+tran 0.01n 50n
+
+*comandos para medir tiempo de simulacion
+rusage time totalcputime
+rusage everything > sim_stats.log
+
+*El save por si solo guarda el valor en el punto de operacion calculado, pero no su transiente. para aquello,
+*se declara una variable nueva DESPUES del comando tran/ac/dc para guardar sus variaciones. El comando es let
+*de estructura | let nombre_variable= expresion_matematica | con la expresion siendo cualquier cosa como suma,resta
+*multiplo e incluso funciones como sqrt() abs() log() deriv() integ() etc.:
+
+let Vth_NMOS = @n.xroberto1.nsg13_lv_nmos[vth]
+let Vth_PMOS = @n.xm1.nsg13_lv_pmos[vth]
+
+let Ids_NMOS = @n.x3.xm2.nsg13_lv_nmos[ids]
+let Ids_PMOS = @n.x3.xm1.nsg13_lv_pmos[ids]
+let Consumo_acumulado_NMOS = integ(abs(Ids_NMOS))
+let Consumo_acumulado_PMOS = integ(abs(Ids_NMOS))
+
+let Gds_M_N = @n.x_middle.xm2.nsg13_lv_nmos[gds]
+let Gds_M_P = @n.x_middle.xm1.nsg13_lv_pmos[gds]
+
+*Unos plots para confirmar que todo se guarde bien (incluso si son corrientes o voltajes, variables declaradas NO
+*necesitan ir con i(Variable) o v(nodo):
+
+plot Vth_NMOS
+plot Vth_PMOS
+plot Ids_NMOS Ids_PMOS
+plot Consumo_acumulado_NMOS Consumo_acumulado_PMOS
+plot Gds_M_N Gds_M_P
+
+
+.endc
+
+
+
+.param corner=0
+
+.if (corner==0)
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib mos_tt
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+.endif
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  ../Manual_Instrucciones/simbolos/Simbolo_Support_1.sym # of pins=4
+** sym_path: /foss/designs/Campamento-ChipUSM-2025/xschem/Manual_Instrucciones/simbolos/Simbolo_Support_1.sym
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/Manual_Instrucciones/simbolos/Simbolo_Support_1.sch
+.subckt Simbolo_Support_1 VDD VIN VOUT VSS
+*.ipin VIN
+*.iopin VDD
+*.iopin VSS
+*.opin VOUT
+XM1 VOUT VIN VDD VDD sg13_lv_pmos w=2u l=0.13u ng=1 m=1
+XM2 VOUT VIN VSS VSS sg13_lv_nmos w=1.0u l=0.13u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end

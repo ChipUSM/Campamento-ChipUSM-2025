@@ -1,9 +1,9 @@
-v {xschem version=3.4.5 file_version=1.2
-}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 L 4 -5180 -1600 -5180 -1100 {}
 L 4 -5180 -1600 -4480 -1600 {}
@@ -57,3 +57,6 @@ value="
 *.option gmin=1e-10
 .option cshunt=1e-13
 "}
+C {../Manual_Instrucciones/Guia_Save&let.sym} -4400 -1230 0 0 {name=x2}
+C {../Manual_Instrucciones/Guia_meas&math.sym} -4400 -1190 0 0 {name=x3}
+C {../Manual_Instrucciones/Guia_plotting.sym} -4390 -1120 0 0 {name=x4}

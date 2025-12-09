@@ -1,1 +1,1 @@
-# Campamento-ChipUSM-2025
+# Sintesis

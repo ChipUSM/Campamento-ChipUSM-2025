@@ -18,8 +18,3 @@ sh > ./obj_dir/Vtb_adder8
 
 La simulacion corre de manera adecuada? En caso de que no, que produce errores?
 
-# Solucion  : (en un commit posterior la borrare xdd)
- 
-
-
-La simulacion si se ejecuto bien tendra errores asociados a overflow.

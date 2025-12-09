@@ -5,3 +5,9 @@ Este repositorio sirve el propósito de almacenar todo el contenido a ver durant
 **Track Digital**
 ```bash
 git clone -b Track-Digital https://github.com/ChipUSM/Campamento-ChipUSM-2025.git
+```
+
+**Track Análogo**
+```bash
+git clone -b Track-Análogo https://github.com/ChipUSM/Campamento-ChipUSM-2025.git
+```

@@ -135,4 +135,5 @@ C {../DCDCBuck/TB_hvPMOS_cgate_ext.sym} -3420 -1440 0 0 {name=X27}
 C {../DigitalGates/TB_NOR.sym} -3150 -1420 0 0 {name=X28}
 C {../DigitalGates/TB_INV.sym} -3150 -1370 0 0 {name=X29}
 C {../DigitalGates/TB_AND.sym} -2835 -1420 0 0 {name=X14}
-C {/foss/designs/Campamento-ChipUSM-2025/xschem/CMOS_Char/Cap_HvMOS.sym} -4080 -1500 0 0 {name=x21}
+C {../CMOS_Char/Cap_HvMOS.sym} -4080 -1500 0 0 {name=x21}
+C {../CMOS_Char/Ron_test.sym} -4070 -1450 0 0 {name=x19}

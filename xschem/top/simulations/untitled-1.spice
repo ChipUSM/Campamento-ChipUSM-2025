@@ -1,0 +1,49 @@
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/top/untitled-1.sch
+**.subckt untitled-1
+XM1 Vd Vg GND GND sg13_hv_nmos w=10u l=0.45u ng=1 m=1
+XM2 Vd Vg GND GND sg13_hv_nmos w=10u l=0.45u ng=2 m=1
+XM3 Vd Vg GND GND sg13_hv_nmos w=5u l=0.45u ng=1 m=2
+Vg Vg GND 3
+Vd Vd GND 3
+**** begin user architecture code
+
+
+
+.control
+
+*** ALMACENAR DATOS Y CORRER SIMULACION
+
+save all
++ @n.xm1.nsg13_hv_nmos[vds]
++ @n.xm1.nsg13_hv_nmos[ids]
++ @n.xm2.nsg13_hv_nmos[vds]
++ @n.xm2.nsg13_hv_nmos[ids]
++ @n.xm3.nsg13_hv_nmos[vds]
++ @n.xm3.nsg13_hv_nmos[ids]
+
+dc Vd 0 3.3 0.01 Vg 0 3.3 0.66
+
+*** GUARDAR DATOS COMO VARIABLES Y GRAFICAR
+
+let vds1 = @n.xm1.nsg13_hv_nmos[vds]
+let ids1 = @n.xm1.nsg13_hv_nmos[ids]
+
+let vds2 = @n.xm2.nsg13_hv_nmos[vds]
+let ids2 = @n.xm2.nsg13_hv_nmos[ids]
+
+let vds3 = @n.xm3.nsg13_hv_nmos[vds]
+let ids3 = @n.xm3.nsg13_hv_nmos[ids]
+
+plot ids1 vs vds1
+plot ids2 vs vds2
+plot ids3 vs vds3
+.endc
+
+
+
+.lib cornerMOShv.lib mos_tt
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

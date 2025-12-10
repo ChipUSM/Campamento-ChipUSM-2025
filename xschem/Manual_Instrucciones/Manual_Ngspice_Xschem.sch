@@ -15,7 +15,7 @@ w_min = 0.15u; w_max = 10u
 hvMOS
 l_min_HVnmos = 0.45u; l_min_HVpmos = 0.4
 w_min_HVnmos = 0.3u;w_min_HVpmos = 0.3u;w_max = 10u;
-} -5160 -1520 0 0 0.4 0.4 {}
+} -5160 -1510 0 0 0.4 0.4 {}
 T {PULSE(VL VH TD TR TF PW PER PHASE) 
 } -5160 -1300 0 0 0.4 0.4 {}
 C {title.sym} -5040 -1010 0 0 {name=l1 author="Andrés Martínez"}

@@ -1,0 +1,64 @@
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/DCDCBuck/TB_hvPMOS_charact.sch
+**.subckt TB_hvPMOS_charact
+XM1 Vd Vgp net1 net1 sg13_hv_pmos w={w_M1} l={l_M1} ng=1 m={mult_M1}
+Vg Vgp GND 0
+Vd Vd GND 3.3
+Vdd Vdd GND 3.3
+VdM1 Vdd net1 0
+.save i(vdm1)
+VdM2 Vdd net2 0
+.save i(vdm2)
+XM2 net2 Vgn Vd net2 sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+Vg1 Vgn GND 3.3
+**** begin user architecture code
+
+
+.param mult_M1 = 1200
+.param w_M1 = 10u
+.param l_M1 = 0.45u
+
+.param mult_M2 = 1200
+.param w_M2 = 10u
+.param l_M2 = 0.45u
+
+.save all
++ @n.xm1.nsg13_hv_pmos[vth]
++ @n.xm1.nsg13_hv_pmos[gds]
++ @n.xm2.nsg13_hv_nmos[vth]
++ @n.xm2.nsg13_hv_nmos[gds]
+
+.control
+dc Vd 0 3.3 0.01
+
+let Vsd = v(Vdd) - v(Vd)
+let G_M1 = @n.xm1.nsg13_hv_pmos[gds]
+let G_M2 = @n.xm2.nsg13_hv_nmos[gds]
+let Ron_M1 = 1/G_M1
+let Ron_M2 = 1/G_M2
+
+plot i(VdM1) i(VdM2) vs Vsd
+plot Ron_M1 Ron_M2 vs Vsd
+write test_pmos.raw
+.endc
+
+.control
+reset
+alter Vd 0
+dc Vg 2 3.3 0.01
+let Vsg = v(Vdd) - v(Vg)
+plot i(VdM1) i(VdM2) i(VdM3) vs Vsg
+.endc
+
+
+
+
+*.lib cornerMOShv.lib mos_tt
+.lib cornerMOShv.lib mos_ss
+*.lib cornerMOShv.lib mos_ff
+*.lib cornerMOShv.lib mos_sf
+*.lib cornerMOShv.lib mos_fs
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

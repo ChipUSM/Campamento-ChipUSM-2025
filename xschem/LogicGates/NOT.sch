@@ -6,11 +6,11 @@ S {}
 F {}
 E {}
 N -100 20 -100 40 {
-lab=#net1}
+lab=Vout}
 N -100 20 40 20 {
-lab=#net1}
+lab=Vout}
 N -100 0 -100 20 {
-lab=#net1}
+lab=Vout}
 N -100 70 -100 150 {
 lab=GND}
 N -150 70 -140 70 {
@@ -26,8 +26,8 @@ lab=Vin}
 N -150 -30 -150 20 {
 lab=Vin}
 C {sg13g2_pr/sg13_hv_nmos.sym} -120 70 2 1 {name=M3
-l=0.45u
-w=1.0u
+l=5u
+w=10.0u
 ng=1
 m=1
 model=sg13_hv_nmos

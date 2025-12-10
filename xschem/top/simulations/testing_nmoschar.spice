@@ -1,0 +1,48 @@
+** sch_path: /foss/designs/testing_nmoschar.sch
+**.subckt testing_nmoschar
+XM1 net5 Vg net6 GND sg13_hv_nmos w=1.0u l=0.45u ng=1 m=1
+XM2 net1 Vg net4 GND sg13_hv_nmos w=1.0u l=0.45u ng=1 m=1
+XM3 net2 Vg net3 GND sg13_hv_nmos w=1.0u l=0.45u ng=1 m=1
+R1 Vd net5 100k m=1
+R2 Vd net1 1k m=1
+R3 Vd net2 100 m=1
+R4 net6 GND 100k m=1
+R5 net4 GND 1k m=1
+R6 net3 GND 1k m=1
+Vg Vg GND 3.3
+Vd Vd GND 3.3
+**** begin user architecture code
+
+
+.control
+save all
++ @n.xm1.nsg13_hv_nmos[vds]
++ @n.xm1.nsg13_hv_nmos[ids]
+*
++ @n.xm2.nsg13_hv_nmos[vds]
++ @n.xm2.nsg13_hv_nmos[ids]
+*
++ @n.xm3.nsg13_hv_nmos[vds]
++ @n.xm3.nsg13_hv_nmos[ids]
+
+dc Vg 1.8 2.7 0.01
+let vds1 = @n.xm1.nsg13_hv_nmos[vds]
+let ids1 = @n.xm1.nsg13_hv_nmos[ids]
+let vds2 = @n.xm2.nsg13_hv_nmos[vds]
+let ids2 = @n.xm2.nsg13_hv_nmos[ids]
+let vds3 = @n.xm3.nsg13_hv_nmos[vds]
+let ids3 = @n.xm3.nsg13_hv_nmos[ids]
+
+plot ids1 vs v(vg)
+plot ids2 vs v(vg)
+plot ids3 vs v(vg)
+.endc
+
+
+
+.lib cornerMOShv.lib mos_tt
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

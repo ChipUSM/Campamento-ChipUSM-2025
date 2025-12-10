@@ -1,0 +1,57 @@
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/DC_NOT.sch
+**.subckt DC_NOT
+x1 Vdd Vin Vout GND NOT
+V1 Vdd GND {Vdd}
+C1 Vout GND 25f m=1
+**** begin user architecture code
+
+
+.lib cornerMOShv.lib mos_tt
+.lib cornerMOSlv.lib mos_tt
+*.lib cornerMOShv.lib mos_ff
+*.lib cornerMOSlv.lib mos_ff
+*.lib cornerMOShv.lib mos_ss
+*.lib cornerMOSlv.lib mos_ss
+*.lib cornerMOShv.lib mos_sf
+*.lib cornerMOSlv.lib mos_sf
+*.lib cornerMOShv.lib mos_fs
+*.lib cornerMOSlv.lib mos_fs
+
+*.include /opt/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+*.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+*.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+*.lib /foss/pdks/ihp-sg13g2/libs.tech/ngspice/models/diodes.lib
+
+
+
+* DEFINIR VOLTAJE DE ALIMENTACION
+.param Vdd = 1.2
+* DEFINIR SEÑALES DE ENTRADA
+vin VIN 0 dc=1
+.control
+save all
+
+dc vin 0 1.2 0.01
+
+**********************************************
+plot V(vout)
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  ../LogicGates/NOT.sym # of pins=4
+** sym_path: /foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/NOT.sym
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/NOT.sch
+.subckt NOT VDD Vin Vout GND
+*.ipin VDD
+*.ipin Vin
+*.ipin GND
+*.opin Vout
+XM3 GND Vin Vout GND sg13_hv_nmos w=10.0u l=5u ng=1 m=1
+XM4 Vout Vin VDD VDD sg13_hv_pmos w=2.72u l=0.45u ng=1 m=1
+.ends
+
+.GLOBAL GND
+.end

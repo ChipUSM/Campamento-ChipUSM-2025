@@ -60,11 +60,15 @@ value="
 *.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
-C {devices/code.sym} -250 -300 0 0 {name=Simulacion only_toplevel=false 
+C {devices/code.sym} -250 -300 0 0 {name=Simulacion only_toplevel=false spice_ignore=0
+
 value="
+
+
 vin VIN 0 PULSE(0 3.3 1ns 0ns 0ns 2ns 4ns)
 
 .control
+
 save all
 ***********************************************
 * SIMULACION DE 10 NANO DE DURACION, CON MEDICIONES CADA 100 PICO
@@ -87,7 +91,7 @@ print tpLH_fin - tpLH_in
 .endc
 "
 }
-C {../LogicGates/NOT.sym} 355 -80 0 0 {name=x1}
+C {../LogicGates/NOT.sym} 355 -80 0 0 {name=e}
 C {capa-2.sym} 450 -50 0 0 {name=C1
 m=1
 value=25f

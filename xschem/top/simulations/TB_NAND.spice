@@ -13,6 +13,8 @@ V3 B GND PULSE(0 {Vdd} {T} {T/200} {T/200} {T} {2*T})
 save all
 
 tran 10p 10n
+
+meas tran Propagacion_Low_High TRIG v(a) VAL=0.6 RISE=2 TARG v(out) VAL=0.6 FALL=1
 plot v(A) v(B) (v(out) + 1.2)
 .endc
 
@@ -26,6 +28,8 @@ plot v(A) v(B) (v(out) + 1.2)
 
 .param T = 2n
 .param Vdd = 1.2
+.param W_n = 1u
+.param W_p = 1u
 
 
 **** end user architecture code
@@ -40,10 +44,10 @@ plot v(A) v(B) (v(out) + 1.2)
 *.ipin B
 *.ipin Vdd
 *.opin F
-XM1 F B net1 Vss sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM2 net1 A Vss Vss sg13_lv_nmos w=0.15u l=0.13u ng=1 m=1
-XM3 F B Vdd Vdd sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
-XM4 F A Vdd Vdd sg13_lv_pmos w=0.15u l=0.13u ng=1 m=1
+XM1 F B net1 Vss sg13_lv_nmos w={W_n} l=0.13u ng=1 m=1
+XM2 net1 A Vss Vss sg13_lv_nmos w={W_n} l=0.13u ng=1 m=1
+XM3 F B Vdd Vdd sg13_lv_pmos w={W_p} l=0.13u ng=1 m=1
+XM4 F A Vdd Vdd sg13_lv_pmos w={W_n} l=0.13u ng=1 m=1
 .ends
 
 .GLOBAL GND

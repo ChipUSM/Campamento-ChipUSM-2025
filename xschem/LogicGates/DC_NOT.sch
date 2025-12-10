@@ -37,7 +37,7 @@ value="
 *.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
-C {devices/code_shown.sym} -865 -290 0 0 {name=Simulacion only_toplevel=false 
+C {devices/code_shown.sym} -875 -290 0 0 {name=Simulacion only_toplevel=false 
 value="
 * DEFINIR VOLTAJE DE ALIMENTACION
 .param Vdd = 1.2

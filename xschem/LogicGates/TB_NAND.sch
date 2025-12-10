@@ -5,14 +5,14 @@ V {}
 S {}
 F {}
 E {}
-N 150 -20 150 10 {lab=GND}
-N 150 -140 150 -120 {lab=Vdd}
-N 40 -90 100 -90 {lab=A}
-N 40 -50 100 -50 {lab=B}
+N 140 60 140 90 {lab=GND}
+N 140 -80 140 -60 {lab=Vdd}
+N 40 -10 100 -10 {lab=A}
+N 40 10 100 10 {lab=B}
 N -100 -30 -100 -10 {lab=Vdd}
-N 240 -70 280 -70 {lab=out}
-N 280 -10 280 20 {lab=GND}
-N 280 -100 280 -70 {lab=out}
+N 200 0 240 0 {lab=out}
+N 240 60 240 90 {lab=GND}
+N 240 -30 240 0 {lab=out}
 N -360 110 -360 130 {lab=A}
 N -40 110 -40 130 {lab=B}
 C {code.sym} -410 -60 0 0 {name=Simulacion only_toplevel=false value="
@@ -21,6 +21,8 @@ C {code.sym} -410 -60 0 0 {name=Simulacion only_toplevel=false value="
 save all
 
 tran 10p 10n
+
+meas tran Propagacion_High_LOW TRIG v(a) VAL=0.6 RISE=2 TARG v(out) VAL=0.6 FALL=1 
 plot v(A) v(B) (v(out) + 1.2)
 .endc
 
@@ -37,21 +39,21 @@ C {code.sym} -280 -60 0 0 {name=Parametros only_toplevel=false value="
 .param W_n = 1u
 .param W_p = 1u
 "}
-C {gnd.sym} 150 10 0 0 {name=l1 lab=GND}
-C {lab_pin.sym} 150 -140 0 0 {name=p1 sig_type=std_logic lab=Vdd}
-C {lab_pin.sym} 40 -90 0 0 {name=p2 sig_type=std_logic lab=A}
-C {lab_pin.sym} 40 -50 0 0 {name=p3 sig_type=std_logic lab=B}
+C {gnd.sym} 140 90 0 0 {name=l1 lab=GND}
+C {lab_pin.sym} 140 -80 0 0 {name=p1 sig_type=std_logic lab=Vdd}
+C {lab_pin.sym} 40 -10 0 0 {name=p2 sig_type=std_logic lab=A}
+C {lab_pin.sym} 40 10 0 0 {name=p3 sig_type=std_logic lab=B}
 C {vsource.sym} -100 20 0 0 {name=V1 value=\{Vdd\} savecurrent=false}
 C {gnd.sym} -100 50 0 0 {name=l2 lab=GND}
 C {lab_pin.sym} -100 -30 0 0 {name=p4 sig_type=std_logic lab=Vdd}
-C {capa.sym} 280 -40 0 0 {name=C1
+C {capa.sym} 240 30 0 0 {name=C1
 m=1
 value=1f
 footprint=1206
 device="ceramic capacitor"}
-C {gnd.sym} 280 20 0 0 {name=l3 lab=GND}
-C {lab_pin.sym} 280 -100 0 1 {name=p5 sig_type=std_logic lab=out}
-C {/foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/NAND.sym} 150 -70 0 0 {name=x1}
+C {gnd.sym} 240 90 0 0 {name=l3 lab=GND}
+C {lab_pin.sym} 240 -30 0 1 {name=p5 sig_type=std_logic lab=out}
+C {/foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/NAND.sym} 180 30 0 0 {name=x1}
 C {vsource.sym} -360 160 0 0 {name=V2 value="PULSE(0 \{Vdd\} \{T/2\} \{T/200\} \{T/200\} \{T/2\} \{T\})"
  savecurrent=false}
 C {gnd.sym} -360 190 0 0 {name=l4 lab=GND}

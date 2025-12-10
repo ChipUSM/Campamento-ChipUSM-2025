@@ -17,38 +17,55 @@ save all
 + @n.xm1.nsg13_hv_nmos[vgs]
 + @n.xm1.nsg13_hv_nmos[ids]
 + @n.xm1.nsg13_hv_nmos[gm]
++ @n.xm1.nsg13_hv_nmos[vth]
 + @n.xm2.nsg13_hv_nmos[vgs]
 + @n.xm2.nsg13_hv_nmos[ids]
 + @n.xm2.nsg13_hv_nmos[gm]
++ @n.xm2.nsg13_hv_nmos[vth]
 + @n.xm3.nsg13_hv_nmos[vgs]
 + @n.xm3.nsg13_hv_nmos[ids]
 + @n.xm3.nsg13_hv_nmos[gm]
++ @n.xm3.nsg13_hv_nmos[vth]
 
-dc Vg 0 3.3 0.01
+dc Vg 0.01 3.3 0.01
 
 *** GUARDAR DATOS COMO VARIABLES Y GRAFICAR
 
 let vgs1 = @n.xm1.nsg13_hv_nmos[vgs]
 let ids1 = @n.xm1.nsg13_hv_nmos[ids]
 let gm1 = @n.xm1.nsg13_hv_nmos[gm]
+let vth1 = @n.xm1.nsg13_hv_nmos[vth]
 
 let vgs2 = @n.xm2.nsg13_hv_nmos[vgs]
 let ids2 = @n.xm2.nsg13_hv_nmos[ids]
-let gm1 = @n.xm2.nsg13_hv_nmos[gm]
+let gm2 = @n.xm2.nsg13_hv_nmos[gm]
+let vth2 = @n.xm2.nsg13_hv_nmos[vth]
 
 
 let vgs3 = @n.xm3.nsg13_hv_nmos[vgs]
 let ids3 = @n.xm3.nsg13_hv_nmos[ids]
 let gm3 = @n.xm3.nsg13_hv_nmos[gm]
+let vth3 = @n.xm3.nsg13_hv_nmos[vth]
 
 plot ids1 vs vgs1
 plot ids2 vs vgs2
 plot ids3 vs vgs3
 
-plot gm1 vs vgs1
+let gm1_formula = deriv(ids1)/deriv(vgs1)
+let gm2_formula = deriv(ids2)/deriv(vgs2)
+let gm3_formula = deriv(ids3)/deriv(vgs3)
+
 print ids1[330]
 print ids2[330]
 print ids3[330]
+plot vth1  vth2 vth3
+plot gm1_formula gm1 vs vgs1
+plot gm2_formula gm2 vs vgs2
+plot gm3_formula gm3 vs vgs3
+
+*plot gm1 vs vgs1
+*plot gm2 vs vgs2
+*plot gm3 vs vgs3
 .endc
 
 

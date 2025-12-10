@@ -72,15 +72,18 @@ C {code.sym} -460 -140 0 0 {name=Simulacion only_toplevel=false value="
 save all
 + @n.xm1.nsg13_hv_nmos[vds]
 + @n.xm1.nsg13_hv_nmos[ids]
++ @n.xm1.nsg13_hv_nmos[gds]
 + @n.xm1.nsg13_hv_nmos[weff]
 + @n.xm2.nsg13_hv_nmos[vds]
 + @n.xm2.nsg13_hv_nmos[ids]
++ @n.xm2.nsg13_hv_nmos[gds]
 + @n.xm2.nsg13_hv_nmos[weff]
 + @n.xm3.nsg13_hv_nmos[vds]
 + @n.xm3.nsg13_hv_nmos[ids]
++ @n.xm3.nsg13_hv_nmos[gds]
 + @n.xm3.nsg13_hv_nmos[weff]
 
-dc Vd 0 3.3 0.01 Vg 0 3.3 0.66
+dc Vd 0 3.3 0.01 Vg 1.32 3.3 0.66
 
 *** GUARDAR DATOS COMO VARIABLES Y GRAFICAR
 
@@ -91,15 +94,18 @@ let ids2 = @n.xm2.nsg13_hv_nmos[ids]
 
 let vds3 = @n.xm3.nsg13_hv_nmos[vds]
 let ids3 = @n.xm3.nsg13_hv_nmos[ids]
+let rds3 = 1/@n.xm3.nsg13_hv_nmos[gds]
 
+plot rds3 vs vds3
 plot ids1 vs vds1
 plot ids2 vs vds2
 plot ids3 vs vds3
 
-print ids1[1985]
-print ids2[1985]
-print ids3[1985]
 op
+let ids1 = @n.xm1.nsg13_hv_nmos[ids]
+let ids2 = @n.xm2.nsg13_hv_nmos[ids]
+let ids3 = @n.xm3.nsg13_hv_nmos[ids]
+
 let weff1 = @n.xm1.nsg13_hv_nmos[weff]
 let weff2 = @n.xm2.nsg13_hv_nmos[weff]
 let weff3 = @n.xm3.nsg13_hv_nmos[weff]

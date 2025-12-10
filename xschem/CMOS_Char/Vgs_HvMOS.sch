@@ -51,12 +51,15 @@ save all
 + @n.xm1.nsg13_hv_nmos[vgs]
 + @n.xm1.nsg13_hv_nmos[ids]
 + @n.xm1.nsg13_hv_nmos[gm]
++ @n.xm1.nsg13_hv_nmos[vth]
 + @n.xm2.nsg13_hv_nmos[vgs]
 + @n.xm2.nsg13_hv_nmos[ids]
 + @n.xm2.nsg13_hv_nmos[gm]
++ @n.xm2.nsg13_hv_nmos[vth]
 + @n.xm3.nsg13_hv_nmos[vgs]
 + @n.xm3.nsg13_hv_nmos[ids]
 + @n.xm3.nsg13_hv_nmos[gm]
++ @n.xm3.nsg13_hv_nmos[vth]
 
 dc Vg 0 3.3 0.01
 
@@ -65,15 +68,18 @@ dc Vg 0 3.3 0.01
 let vgs1 = @n.xm1.nsg13_hv_nmos[vgs]
 let ids1 = @n.xm1.nsg13_hv_nmos[ids]
 let gm1 = @n.xm1.nsg13_hv_nmos[gm]
+let vth1 = @n.xm1.nsg13_hv_nmos[vth]
 
 let vgs2 = @n.xm2.nsg13_hv_nmos[vgs]
 let ids2 = @n.xm2.nsg13_hv_nmos[ids]
 let gm1 = @n.xm2.nsg13_hv_nmos[gm]
+let vth2 = @n.xm2.nsg13_hv_nmos[vth]
 
 
 let vgs3 = @n.xm3.nsg13_hv_nmos[vgs]
 let ids3 = @n.xm3.nsg13_hv_nmos[ids]
 let gm3 = @n.xm3.nsg13_hv_nmos[gm]
+let vth3 = @n.xm3.nsg13_hv_nmos[vth]
 
 plot ids1 vs vgs1
 plot ids2 vs vgs2

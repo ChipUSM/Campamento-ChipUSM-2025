@@ -53,6 +53,8 @@ value="
 *.param fsw = 8.4Meg
 .param fsw = 1Meg
 
+.param Co = 0.28f
+
 .param Tx = 1/fsw
 .param Ty = Tx/5
 .param D = 0.5
@@ -133,3 +135,9 @@ value="
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
 C {../DigitalGates/AND.sym} -710 -140 0 0 {name=X1}
+C {capa.sym} -720 -160 0 0 {name=C1
+m=1
+value=\{Co\}
+footprint=1206
+device="ceramic capacitor"}
+C {gnd.sym} -720 -130 0 0 {name=l3 lab=GND}

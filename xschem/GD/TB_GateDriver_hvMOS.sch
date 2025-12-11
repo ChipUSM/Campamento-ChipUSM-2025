@@ -83,7 +83,6 @@ N -550 -300 -550 -270 {
 lab=VHH}
 N -550 -210 -550 -190 {
 lab=GND}
-C {../GD/GateDriver.sym} -230 -560 0 0 {name=X1}
 C {vsource.sym} -760 -240 0 0 {name=Vdd value=\{Vdd\} savecurrent=false}
 C {lab_pin.sym} -760 -330 0 0 {name=p5 sig_type=std_logic lab=Vdd}
 C {gnd.sym} -760 -190 0 0 {name=l2 lab=GND}
@@ -112,8 +111,8 @@ value="
 .param TdF = 1n
 .param TR = 10n
 .param TF = 10n
-.param Del = 0.05u
-
+*.param Del = 0.05u
+.param Del = 0
 .param R = 3.3
 
 .param temp = 27
@@ -172,56 +171,6 @@ print TdR TdF P_GD
 
 .end
 "}
-C {code.sym} -700 -670 0 0 {name=GateDriver_Parameters only_toplevel=false 
-
-value="
-.param temp=27
-
-*.param mult_13 = 1
-*.param mult_24 = 6
-*.param mult_5 = 100
-*.param mult_6 = 100
-*.param mult_7 = 200
-*.param mult_8 = 200
-*.param mult_9 = 5
-*.param mult_10 = 5
-
-.param mult_13 = 1
-.param mult_24 = 6
-.param mult_5 = 30
-.param mult_6 = 25
-.param mult_7 = 250
-.param mult_8 = 200
-.param mult_9 = 15
-.param mult_10 = 15
-*.param mult_5 = 25
-*.param mult_6 = 25
-*.param mult_7 = 75
-*.param mult_8 = 60
-
-.param ng_13 = 1
-.param ng_24 = 1
-.param ng_5 = 1
-.param ng_6 = 1
-.param ng_7 = 1
-.param ng_8 = 1
-.param ng_9 = 1
-.param ng_10 = 1
-
-*.param w_1357 = 0.3u
-*.param w_2468 = 0.3u
-
-.param l_1357 = 0.4u
-.param w_1357 = 10u
-.param l_2468 = 0.45u
-.param w_2468 = 10u
-.param l_9 = 0.13u
-.param w_9 = 0.15u
-.param l_10 = 0.13u
-.param w_10 = 0.15u
-
-
-"}
 C {vsource.sym} -650 -240 0 0 {name=Vdd1 value=\{VH\} savecurrent=false}
 C {lab_pin.sym} -650 -330 0 0 {name=p1 sig_type=std_logic lab=VH
 value=\{VH\}}
@@ -269,23 +218,6 @@ device=resistor
 m=1}
 C {lab_pin.sym} 130 -300 0 0 {name=p15 sig_type=std_logic lab=Vc2}
 C {lab_pin.sym} -220 -360 0 0 {name=p16 sig_type=std_logic lab=Vc1}
-C {code.sym} -500 -670 0 0 {name=POWER_MOS_Parameters only_toplevel=false 
-
-value="
-.param temp=27
-.param mult_M1 = 12000
-.param w_M1 =10u 
-.param l_M1 = 0.4u
-.param ng_M1 = 1
-
-.param mult_M2 = 4000
-.param w_M2 =10u 
-.param l_M2 =0.45u
-.param ng_M2 =1
-
-
-
-"}
 C {gnd.sym} -180 -520 0 0 {name=l6 lab=GND}
 C {lab_pin.sym} 90 -600 0 0 {name=p10 sig_type=std_logic lab=Vs_M2}
 C {lab_pin.sym} 140 -670 0 0 {name=p13 sig_type=std_logic lab=Vdd}
@@ -306,4 +238,51 @@ C {gnd.sym} -550 -190 0 0 {name=l9 lab=GND
 value=\{VH\}}
 C {ammeter.sym} -760 -300 2 0 {name=V_Igd_Vdd savecurrent=true spice_ignore=0}
 C {ammeter.sym} -650 -300 2 0 {name=V_Igd_VH savecurrent=true spice_ignore=0}
-C {../GD/GateDriver.sym} 120 -560 0 0 {name=X2}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM1.sym} -230 -560 0 0 {name=X1}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM2.sym} 120 -560 0 0 {name=X2}
+C {code.sym} -710 -670 0 0 {name=GateDriver_Parameters only_toplevel=false 
+
+value="
+.param temp=27
+
+.param w_hv = 0.3u
+.param l_hv = 0.45u
+
+.param mult1_GD1 = 1
+.param mult2_GD1 = 4
+.param mult3_GD1 = 14
+.param mult4_GD1 = 51
+.param mult5_GD1 = 190
+.param mult6_GD1 = 704
+.param mult7_GD1 = 2614
+.param mult8_GD1 = 9700
+
+.param mult1_GD2 = 1
+.param mult2_GD2 = 3
+.param mult3_GD2 = 11
+.param mult4_GD2 = 37
+.param mult5_GD2 = 124
+.param mult6_GD2 = 413
+.param mult7_GD2 = 1378
+.param mult8_GD2 = 4597
+
+
+"}
+C {code.sym} -510 -670 0 0 {name=POWER_MOS_Param only_toplevel=false spice_ignore=0
+
+value="
+.param mult = 95238
+.param temp=27
+.param mult_M1 = 3*mult
+.param w_M1 =0.3u 
+.param l_M1 = 0.45u
+.param ng_M1 = 1
+
+.param mult_M2 = 1*mult
+.param w_M2 =0.3u 
+.param l_M2 =0.45u
+.param ng_M2 =1
+
+
+
+"}

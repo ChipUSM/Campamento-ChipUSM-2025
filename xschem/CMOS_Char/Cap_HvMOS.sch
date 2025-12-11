@@ -40,16 +40,19 @@ N 640 150 670 150 {lab=Vg2}
 C {code.sym} -130 100 0 0 {name=Simulación only_toplevel=false value="
 
 .control
-tran 10p 2n
+tran 10p 10n
 meas tran tau_d1 when v(Vd1) = 2.079 CROSS=1
 meas tran tau_g1 when v(Vg1) = 2.079 CROSS=1
 meas tran tau_d2 when v(Vd2) = 2.079 CROSS=1
 meas tran tau_g2 when v(Vg2) = 2.079 CROSS=1
 
 let cd1 = tau_d1/(100k)
-let cg2 = tau_g1/(100k)
+let cg1 = tau_g1/(100k)
 let cd2 = tau_d2/(100k)
 let cg2 = tau_g2/(100k)
+
+print cd1 cd2
+print cg1 cg2
 
 .endc
 "}
@@ -75,7 +78,10 @@ spiceprefix=X
 }
 C {devices/gnd.sym} 290 90 0 0 {name=l2 lab=GND}
 C {code.sym} -130 -50 0 0 {name=Parametros only_toplevel=false value="
-.param M = 1
+.param R = 100k
+.param Vdd = 3.3
+.param T = 8n
+.param M = 10
 .param W = \{M*1u\}
 "}
 C {devices/res.sym} 240 150 1 0 {name=R1

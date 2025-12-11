@@ -57,14 +57,14 @@ C {devices/lab_pin.sym} -210 30 0 0 {name=p6 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} 330 140 1 0 {name=p8 sig_type=std_logic lab=VCP}
 C {devices/capa.sym} 410 170 0 0 {name=C1
 m=1
-value=0.1p
+value=\{Co\}
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_pin.sym} 410 200 0 0 {name=p14 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} 330 260 1 0 {name=p9 sig_type=std_logic lab=VCN}
 C {devices/capa.sym} 410 290 0 0 {name=C2
 m=1
-value=0.1p
+value=\{Co\}
 footprint=1206
 device="ceramic capacitor"}
 C {devices/lab_pin.sym} 410 320 0 0 {name=p10 sig_type=std_logic lab=VSS}
@@ -77,37 +77,23 @@ value="
 .param Del = 0
 
 .param D = 0.4
-.param fsw = 10Meg
+*.param fsw = 10Meg
+.param fsw = 5Meg
+
 .param T = 1/fsw
 .csparam T = \{T\}
 .param TR = 0.01*T
 .param TF = 0.01*T
-.param TdR = 0.01*T
-.param TdF = 0.01*T
+.param TdR = 1.7n
+.param TdF = 1.7n
 
+.param Co = 4*0.28f
 
-.param C_del = 0.1p
-.param R_del_rise = TdR/(C_del)
-.param R_del_fall = TdF/(C_del)
+.param C_del = 0.28f
+.param R_del_rise = TdR/(10*C_del)
+.param R_del_fall = TdF/(10*C_del)
 
 .param temp = 27
-
-"}
-C {code.sym} -570 300 0 0 {name=NOR_INV_Parameters only_toplevel=false 
-
-value="
-.param temp=27
-.param mult = 1
-
-.param w_P_NOR =0.15u
-.param l_P_NOR = 0.15u
-
-.param w_N_NOR =0.15u
-.param l_N_NOR =0.15u
-
-.param w_inv =0.15u
-.param l_inv =0.15u
-
 
 "}
 C {devices/lab_pin.sym} 180 140 2 0 {name=p38 sig_type=std_logic lab=VCP}
@@ -136,3 +122,13 @@ value="
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
 C {../NOL/NOL.sym} -30 240 0 0 {name=X1}
+C {code.sym} -570 300 0 0 {name=NOR_Parameters only_toplevel=false 
+
+value="
+.param temp=27
+.param mult = 1
+
+.param multP_NOR = 1
+.param multN_NOR = 6
+
+"}

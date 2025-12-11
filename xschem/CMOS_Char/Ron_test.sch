@@ -27,7 +27,7 @@ spiceprefix=X
 C {lab_pin.sym} 30 -250 0 0 {name=p5 sig_type=std_logic lab=Vd}
 C {lab_pin.sym} -10 -220 0 0 {name=p6 sig_type=std_logic lab=Vg}
 C {gnd.sym} 30 -90 0 0 {name=l1 lab=GND}
-C {code.sym} -410 -250 0 0 {name=Simulacion only_toplevel=false value="
+C {code.sym} -410 -250 0 0 {name=Simulacion only_toplevel=false spice_ignore=true value="
 
 .control
 save all
@@ -53,8 +53,9 @@ C {code.sym} -280 -250 0 0 {name=Parametros only_toplevel=false value="
 .param W = 1.0u
 .param Vdd = 3.3
 "}
-C {code.sym} -410 -400 0 0 {name="While Sim" only_toplevel=false spice_ignore=1
+C {code.sym} -410 -400 0 0 {name="While Sim" only_toplevel=false spice_ignore=0
 value="
+.control
 let strt_w = 1.0u
 let stop_w = 10u
 let step_w = 0.1u
@@ -64,10 +65,10 @@ while curr_w le stop_w
 	alterparam W = $&curr_w
 	reset
 	save all
-	+ @n.xm1.nsg13_lv_nmos[gds]
+	+ @n.xm1.nsg13_hv_nmos[gds]
 	op
-	let rds = 1/@n.xm1.nsg13_lv_nmos[gds]
-	wrdata ../top 
+	let rds = 1/@n.xm1.nsg13_hv_nmos[gds]
+	wrdata ../top rds
 	set appendwrite
 	let curr_w = curr_w + step_w
 end

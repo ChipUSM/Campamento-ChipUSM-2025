@@ -5,18 +5,6 @@ Vg Vg GND 3.3
 Vd Vd GND 3.3
 **** begin user architecture code
 
-
-
-.control
-save all
-+ @n.xm1.nsg13_hv_nmos[gds]
-op
-let rds =1/@n.xm1.nsg13_hv_nmos[gds]
-print rds
-.endc
-
-
-
 .lib cornerMOShv.lib mos_tt
 
 
@@ -24,6 +12,28 @@ print rds
 
 .param W = 1.0u
 .param Vdd = 3.3
+
+
+
+
+.control
+let strt_w = 1.0u
+let stop_w = 10u
+let step_w = 0.1u
+let curr_w = 1.0u
+save all
+while curr_w le stop_w
+	alterparam W = $&curr_w
+	reset
+	save all
+	+ @n.xm1.nsg13_hv_nmos[gds]
+	op
+	let rds = 1/@n.xm1.nsg13_hv_nmos[gds]
+	wrdata ../top rds
+	set appendwrite
+	let curr_w = curr_w + step_w
+end
+.endc
 
 
 **** end user architecture code

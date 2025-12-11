@@ -65,7 +65,7 @@ C {sg13g2_pr/sg13_hv_pmos.sym} -110 -60 0 0 {name=MD5
 l=0.4u
 w=1u
 ng=1
-m=2
+m=3
 model=sg13_hv_pmos
 spiceprefix=X
 }

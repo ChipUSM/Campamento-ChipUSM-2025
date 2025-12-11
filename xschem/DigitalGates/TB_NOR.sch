@@ -35,6 +35,8 @@ N -660 -250 -660 -230 {
 lab=VDD}
 N -660 -150 -660 -130 {
 lab=VSS}
+N -550 -130 -550 -100 {
+lab=GND}
 C {vsource.sym} -920 70 0 0 {name=Vin value=\{Vin\} savecurrent=false}
 C {lab_pin.sym} -920 10 0 0 {name=p5 sig_type=std_logic lab=VDD}
 C {gnd.sym} -920 120 0 0 {name=l2 lab=GND}
@@ -53,7 +55,8 @@ value="
 
 *.param fsw = 10Meg
 *.param fsw = 8.4Meg
-.param fsw = 1Meg
+.param fsw = 5Meg
+*.param fsw = 1Meg
 
 .param Tx = 1/fsw
 .param Ty = Tx/5
@@ -62,6 +65,8 @@ value="
 .param TF = 1n
 .param TdR = 0.5n
 .param TdF = 0.5n
+
+.param Co = 4*0.28f
 
 *.option temp = 125
 *.option temp = -40
@@ -110,14 +115,8 @@ value="
 .param temp=27
 .param mult = 1
 
-.param w_P_NOR =0.15u
-.param l_P_NOR = 0.15u
-
-.param w_N_NOR =0.15u
-.param l_N_NOR =0.15u
-
-
-
+.param multP_NOR = 1
+.param multN_NOR = 6
 
 "}
 C {vsource.sym} -820 70 0 0 {name=VSS value=0 savecurrent=false}
@@ -151,3 +150,9 @@ value="
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
 C {../DigitalGates/NOR.sym} -730 -110 0 0 {name=X2}
+C {capa.sym} -550 -160 0 0 {name=C1
+m=1
+value=\{Co\}
+footprint=1206
+device="ceramic capacitor"}
+C {gnd.sym} -550 -100 0 0 {name=l3 lab=GND}

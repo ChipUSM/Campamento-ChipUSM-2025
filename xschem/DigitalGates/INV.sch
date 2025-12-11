@@ -51,18 +51,18 @@ C {devices/lab_pin.sym} -520 -410 1 0 {name=p15 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} -420 -360 2 1 {name=p11 sig_type=std_logic lab=Y}
 C {devices/lab_pin.sym} -650 -310 0 0 {name=p21 sig_type=std_logic lab=X}
 C {sg13g2_pr/sg13_lv_nmos.sym} -540 -270 0 0 {name=M3
-w=\{w_inv\}
-l=\{l_inv\}
+w = 0.15u
+l = 0.13u
 nf=1
-m=\{mult\}
+m = 1
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -540 -360 0 0 {name=M4
-w=\{w_inv\}
-l=\{l_inv\}
+w= 0.15u
+l= 0.13u
 nf=1
-m=\{mult*3\}
+m= 3
 model=sg13_lv_pmos
 spiceprefix=X
 }

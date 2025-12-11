@@ -112,23 +112,6 @@ C {launcher.sym} -510 -460 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/TB_DCDCBuck.raw tran"
 }
-C {code.sym} -1340 -250 0 0 {name=GD_Param only_toplevel=false 
-
-value="
-.param temp=27
-
-.param mult_1 = 1
-.param mult_2 = 10
-.param mult_3 = 30
-.param mult_4 = 250
-
-.param l = 0.15
-*.param l = 0.3
-.param w = 0.42
-
-
-
-"}
 C {code.sym} -1230 -400 0 0 {name=Sim_Param only_toplevel=false 
 
 value="
@@ -136,14 +119,15 @@ value="
 .param VH = 3.3
 .param Vdd = 1.2
 .param Del = 0
-.param Co =63p
+*.param Co =63p
 .ic v(Vo) = 0
 *.ic i(x1.L1) = 0 No se puede hacer ic de corriente
 *.ic v(Vc) = 0
 
 
 *.param fsw = 10Meg
-.param fsw = 8.4Meg
+*.param fsw = 8.4Meg
+.param fsw = 5Meg
 *.param fsw = 1Meg
 
 .param Vo = 1.2
@@ -152,11 +136,11 @@ value="
 .param rV = 0.1
 .param T = 1/fsw
 
-.param D = 1-((Vo+0.05)/(Vin-0.03))
+.param D = 1-((Vo+0.07)/(Vin-0.03))
 .param TR = 1n
 .param TF = 1n
-.param TdR = 1.5n
-.param TdF = 1.5n
+.param TdR = 1.7n
+.param TdF = 1.7n
 
 *Filtro
 .param L = Vin/(4*Io*rI*fsw)
@@ -164,14 +148,14 @@ value="
 .param C = rI/(8*rV*R*fsw)
 
 *NOL 
-.param C_del = 0.1p
-.param R_del_rise = TdR/(C_del)
-.param R_del_fall = TdF/(C_del)
+.param C_del = 0.28f
+.param R_del_rise = TdR/(10*C_del)
+.param R_del_fall = TdF/(10*C_del)
 
-*PD 
+*PD Pulse width
 .param PW = 1n
-.param C_del= 0.1p
-.param R_del = PW/C_del
+.param C_del= 0.28f
+.param R_del = PW/(C_del*5)
 
 *.option temp = 125
 *.option temp = -40
@@ -206,7 +190,7 @@ value="
 .csparam C = \{C\}
 .csparam R = \{R\}
 
-.tran 100n \{SimTime\} uic
+.tran 0.1n \{SimTime\} uic
 
 .control
 
@@ -272,7 +256,7 @@ plot Po P_in
 plot v(x1.Vc)
 plot v(Vg_M1) v(Vg_M2)
 plot Ron_M1 Ron_M2
-write TB_DCDCBuck.raw
+*write TB_DCDCBuck.raw
 .endc
 
 
@@ -551,28 +535,6 @@ plot loss_GD_sweep vs fsw_sweep
 
 .end
 "}
-C {../GD/GD_vto1p1.sym} -230 -100 0 0 {name=X4}
-C {code.sym} -1340 -250 0 1 {name=POWER_MOS_Param only_toplevel=false 
-
-value="
-*M1 hvPMOS
-.param temp=27
-.param mult_M1 = 12000
-.param w_M1 =10u 
-.param l_M1 = 0.4u
-.param ng_M1 = 1
-
-*M2 hvNMOS
-.param mult_M2 = 4000
-.param w_M2 =10u 
-.param l_M2 =0.45u
-.param ng_M2 =1
-
-
-
-
-"}
-C {../DCDCBuck/DCDCBuck_vto1p1.sym} 210 -160 0 0 {name=X1}
 C {code.sym} -1340 -400 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
@@ -593,7 +555,6 @@ value="
 *.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
-C {../GD/GD_vto1p1.sym} -230 130 0 0 {name=X2}
 C {ammeter.sym} -210 -230 0 1 {name=V_Igd1_dig savecurrent=true spice_ignore=0}
 C {ammeter.sym} -210 0 0 1 {name=V_Igd2_dig savecurrent=true spice_ignore=0}
 C {../NOL/NOL.sym} -540 0 0 0 {name=X3}
@@ -603,46 +564,6 @@ C {lab_pin.sym} -440 -210 0 0 {name=p19 sig_type=std_logic lab=Vdd}
 C {ammeter.sym} -440 -180 0 1 {name=V_Inol savecurrent=true spice_ignore=0}
 C {gnd.sym} -440 -20 0 0 {name=l8 lab=GND}
 C {lab_pin.sym} -550 -100 1 0 {name=p7 sig_type=std_logic lab=V_PWM}
-C {code.sym} -1220 -250 0 0 {name=NOR_INV_AND_Param only_toplevel=false 
-
-value="
-.param temp=27
-.param mult = 1
-
-.param w_P_NOR =0.15u
-.param l_P_NOR = 0.15u
-
-.param w_N_NOR =0.15u
-.param l_N_NOR =0.15u
-
-.param w_inv =0.15u
-.param l_inv =0.15u
-
-.param w_P_AND =0.15u
-.param l_P_AND = 0.15u
-
-.param w_N_AND =0.15u
-.param l_N_AND =0.15u
-
-"}
-C {code.sym} -1460 -400 0 0 {name=Sim_Config only_toplevel=false 
-
-value="
-
-*.option KLU
-*.option itl4=100
-.option method=gear
-*.option maxord=2
-*.option trtol=25 
-*.option lvltim=1
-*.option tnum=1e9
-*.option reltol=1e-3
-*.option abstol=1e-10
-*.option vntol=1e-4
-*.option event
-*.option gmin=1e-10
-*.option cshunt=1e-13
-"}
 C {../PD/PD.sym} -790 0 0 0 {name=X5}
 C {lab_pin.sym} 90 -80 0 0 {name=p21 sig_type=std_logic lab=V_R}
 C {gnd.sym} 90 30 0 0 {name=l9 lab=GND}
@@ -661,3 +582,74 @@ C {lab_pin.sym} -930 -220 0 0 {name=p24 sig_type=std_logic lab=Vdd}
 C {lab_pin.sym} -930 -60 0 0 {name=p25 sig_type=std_logic lab=Vdd}
 C {gnd.sym} -930 -100 0 0 {name=l5 lab=GND}
 C {gnd.sym} -930 60 0 0 {name=l11 lab=GND}
+C {code.sym} -1290 -250 0 0 {name=GateDriver_Parameters only_toplevel=false 
+
+value="
+.param temp=27
+
+.param w_hv = 0.3u
+*.param w_hv = 0.45u
+.param l_hv = 0.45u
+*.param l_hv = 0.3u
+
+.param mult1_GD1 = 1
+.param mult2_GD1 = 4
+.param mult3_GD1 = 14
+.param mult4_GD1 = 51
+.param mult5_GD1 = 190
+.param mult6_GD1 = 704
+.param mult7_GD1 = 2614
+.param mult8_GD1 = 9700
+
+.param mult1_GD2 = 1
+.param mult2_GD2 = 3
+.param mult3_GD2 = 11
+.param mult4_GD2 = 37
+.param mult5_GD2 = 124
+.param mult6_GD2 = 413
+.param mult7_GD2 = 1378
+.param mult8_GD2 = 4597
+
+
+"}
+C {code.sym} -1460 -250 0 0 {name=POWER_MOS_Param only_toplevel=false spice_ignore=0
+
+value="
+.param mult = 95238
+.param temp=27
+.param mult_M1 = 3*mult
+.param w_M1 =0.3u 
+.param l_M1 = 0.45u
+.param ng_M1 = 1
+
+.param mult_M2 = 1*mult
+.param w_M2 =0.3u 
+.param l_M2 =0.45u
+.param ng_M2 =1
+
+
+
+"}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM1.sym} -230 -100 0 0 {name=X11}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM2.sym} -230 130 0 0 {name=X2}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/DCDCBuck/DCDC_Buck.sym} 210 -160 0 0 {name=X1}
+C {code.sym} -1460 -400 0 0 {name=Sim_Config only_toplevel=false 
+
+value="
+
+*.option KLU
+*.option itl4=100
+.option method=gear
+*.option maxord=2
+*.option trtol=25 
+*.option lvltim=1
+*.option tnum=1e9
+*.option reltol=1e-3
+*.option abstol=1e-10
+*.option vntol=1e-4
+*.option event
+*.option gmin=1e-10
+*.option cshunt=0.28f
+.option cshunt=0.14f
+*.option cshunt=0.56f
+"}

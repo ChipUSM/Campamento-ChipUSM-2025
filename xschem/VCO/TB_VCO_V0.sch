@@ -42,7 +42,7 @@ C {devices/lab_pin.sym} 2920 -1090 1 0 {name=p2 sig_type=std_logic lab=VDD}
 C {code.sym} 3130 -980 0 0 {name=SimParameters only_toplevel=true spice_ignore=false
 format="tcleval( @value )"
 value="
-.param Co = 1p
+.param Co = 4*0.28f
 .param mult = 1
 .param w_inv = 0.15u
 .param l_inv = 0.15u
@@ -77,7 +77,7 @@ m=1
 value=\{Co\}
 footprint=1206
 device="ceramic capacitor"}
-C {devices/code.sym} 3600 -1120 0 0 {name=SweepVcont only_toplevel=false spice_ignore=1
+C {devices/code.sym} 3600 -1120 0 0 {name=SweepVcont only_toplevel=false spice_ignore=0
 value="
 .save all
 .tran 10n \{SimTime\}
@@ -86,6 +86,16 @@ value="
 .control
 let Vtarg = 1.5
 compose vin_var start=0 stop=2 step=0.2
+
+.param fsw = 5Meg
+.param Vmax = 2
+.param VDD = 3.3
+.param Vscaling = Vmax/VDD
+.param Vref = 1.2
+.param KiObj = 0.5Meg
+.param fcObj = fsw -KiObj*(Vref*Vscaling-Vmax/2)
+.csparam fcObj = \{fcObj\}
+
 
 let strt = 0
 let stp = 2
@@ -121,14 +131,15 @@ end
 plot tran1.v(Vo) 
 plot tran10.v(Vo)
 print f_sweep
+print fcObj
 plot f_sweep vs vin_var
-wrdata /workspaces/usm-vlsi-tools/shared_xserver/simulations/SKY130/IPD500-TimebasedDCDCBuck/sim_data/data_VCO_sky130.txt tran1.v(V_1) tran2.v(V_1) tran3.v(V_1) tran4.v(V_1) tran5.v(V_1) tran6.v(V_1) tran7.v(V_1) tran8.v(V_1) tran9.v(V_1) tran10.v(V_1) tran11.v(V_1)
-wrdata /workspaces/usm-vlsi-tools/shared_xserver/simulations/SKY130/IPD500-TimebasedDCDCBuck/sim_data/data_fsweep.txt f_sweep[1] vin_var
+*wrdata /workspaces/usm-vlsi-tools/shared_xserver/simulations/SKY130/IPD500-TimebasedDCDCBuck/sim_data/data_VCO_sky130.txt tran1.v(V_1) tran2.v(V_1) tran3.v(V_1) tran4.v(V_1) tran5.v(V_1) tran6.v(V_1) tran7.v(V_1) tran8.v(V_1) tran9.v(V_1) tran10.v(V_1) tran11.v(V_1)
+*wrdata /workspaces/usm-vlsi-tools/shared_xserver/simulations/SKY130/IPD500-TimebasedDCDCBuck/sim_data/data_fsweep.txt f_sweep[1] vin_var
 .endc
 "}
 C {vsource.sym} 2530 -960 0 0 {name=Vcont value=\{Vcont\} savecurrent=false}
 C {devices/lab_pin.sym} 2530 -910 3 0 {name=p11 sig_type=std_logic lab=VSS}
-C {devices/code.sym} 3370 -1120 0 0 {name=TranSim only_toplevel=false spice_ignore=0
+C {devices/code.sym} 3370 -1120 0 0 {name=TranSim only_toplevel=false spice_ignore=1
 value="
 .param Vo = 0
 .param Vref = Vo*2/3.3
@@ -217,6 +228,7 @@ value="
 *.option event
 *.option gmin=1e-10
 *.option cshunt=1e-13
+.option cshunt=0.14f
 "}
 C {../VCO/VCO_V0.sym} 2660 -1000 0 0 {name=x1 spice_ignore=0}
 C {code.sym} 3260 -980 0 0 {name=VCO_param_Ki_2.14M/V only_toplevel=true spice_ignore=1
@@ -246,7 +258,7 @@ value="
 
 
 "}
-C {code.sym} 3460 -980 0 0 {name=VCO_param_Ki_1 only_toplevel=true spice_ignore=0
+C {code.sym} 3460 -980 0 0 {name=VCO_param_Ki_1 only_toplevel=true spice_ignore=1
 format="tcleval( @value )"
 value="
 
@@ -266,6 +278,33 @@ value="
 .param w_MN2 = 5u
 .param l_MN2 = 0.5u
 .param w_MN3 = 3u
+.param l_MN3 = 0.5u
+.param w_MN4 = 2u
+.param l_MN4 = 5u
+
+
+
+"}
+C {code.sym} 3600 -980 0 0 {name=VCO_param_Ki_2 only_toplevel=true spice_ignore=0
+format="tcleval( @value )"
+value="
+
+.param w_MP1a = 1u
+.param l_MP1a = 40u
+.param w_MP1b = 1u
+.param l_MP1b = 8u
+.param w_MP2 = 8u
+.param l_MP2 = 4u
+.param w_MP3 = 7u
+.param l_MP3 = 4u
+.param w_MP4 = 3u
+.param l_MP4 = 5u
+
+.param w_MN1 = 6u
+.param l_MN1 = 0.5u
+.param w_MN2 = 5u
+.param l_MN2 = 0.5u
+.param w_MN3 = 4u
 .param l_MN3 = 0.5u
 .param w_MN4 = 2u
 .param l_MN4 = 5u

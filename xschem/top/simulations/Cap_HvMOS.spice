@@ -1,0 +1,52 @@
+** sch_path: /foss/designs/Campamento-ChipUSM-2025/xschem/CMOS_Char/Cap_HvMOS.sch
+**.subckt Cap_HvMOS
+R2 Vd1 net2 {R} m=1
+V2 net2 GND PULSE ({Vdd} 0 0 1p 1p {T/2} {T})
+XM1 Vd1 GND GND GND sg13_hv_nmos w={W} l=0.45u ng=1 m=1
+R1 Vg1 net1 {R} m=1
+V1 net1 GND PULSE ({Vdd} 0 0 1p 1p {T/2} {T})
+XM2 GND Vg1 GND GND sg13_hv_nmos w={W} l=0.45u ng=1 m=1
+R3 Vd2 net4 {R} m=1
+V3 net4 GND PULSE ({Vdd} 0 0 1p 1p {T/2} {T})
+XM3 Vd2 GND GND GND sg13_hv_nmos w=1.0u l=0.45u ng=1 m={M}
+R4 Vg2 net3 {R} m=1
+V4 net3 GND PULSE ({Vdd} 0 0 1p 1p {T/2} {T})
+XM4 GND Vg2 GND GND sg13_hv_nmos w=1.0u l=0.45u ng=1 m={M}
+**** begin user architecture code
+
+
+
+.control
+tran 10p 10n
+meas tran tau_d1 when v(Vd1) = 2.079 CROSS=1
+meas tran tau_g1 when v(Vg1) = 2.079 CROSS=1
+meas tran tau_d2 when v(Vd2) = 2.079 CROSS=1
+meas tran tau_g2 when v(Vg2) = 2.079 CROSS=1
+
+let cd1 = tau_d1/(100k)
+let cg1 = tau_g1/(100k)
+let cd2 = tau_d2/(100k)
+let cg2 = tau_g2/(100k)
+
+print cd1 cd2
+print cg1 cg2
+
+.endc
+
+
+
+.lib cornerMOShv.lib mos_tt
+
+
+
+.param R = 100k
+.param Vdd = 3.3
+.param T = 8n
+.param M = 10
+.param W = {M*1u}
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

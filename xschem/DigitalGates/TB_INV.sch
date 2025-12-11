@@ -27,6 +27,8 @@ N -800 -180 -800 -160 {
 lab=VSS}
 N -750 -200 -720 -200 {
 lab=F}
+N -730 -140 -730 -110 {
+lab=GND}
 C {vsource.sym} -920 -20 0 0 {name=Vin value=\{Vin\} savecurrent=false}
 C {lab_pin.sym} -920 -80 0 0 {name=p5 sig_type=std_logic lab=VDD}
 C {gnd.sym} -920 30 0 0 {name=l2 lab=GND}
@@ -42,7 +44,10 @@ value="
 
 *.param fsw = 10Meg
 *.param fsw = 8.4Meg
-.param fsw = 1Meg
+.param fsw = 5Meg
+*.param fsw = 1Meg
+
+.param Co = 4*0.28f
 
 .param Tx = 1/fsw
 .param Ty = Tx/5
@@ -78,22 +83,6 @@ plot v(X) v(F)+2
 
 .end
 "}
-C {code.sym} -1240 -160 0 0 {name=INV_Parameters only_toplevel=false 
-
-value="
-.param temp=27
-.param mult = 1
-
-.param w_INV =0.15u
-.param l_INV = 0.15u
-
-.param w_INV =0.15u
-.param l_INV =0.15u
-
-
-
-
-"}
 C {devices/lab_pin.sym} -800 -240 1 0 {name=p16 sig_type=std_logic lab=VDD}
 C {devices/lab_pin.sym} -800 -160 3 0 {name=p17 sig_type=std_logic lab=VSS}
 C {devices/lab_pin.sym} -870 -200 2 1 {name=p1 sig_type=std_logic lab=X}
@@ -123,3 +112,9 @@ value="
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
 C {../DigitalGates/INV.sym} -1010 -160 0 0 {name=X1}
+C {capa.sym} -730 -170 0 0 {name=C1
+m=1
+value=\{Co\}
+footprint=1206
+device="ceramic capacitor"}
+C {gnd.sym} -730 -110 0 0 {name=l3 lab=GND}

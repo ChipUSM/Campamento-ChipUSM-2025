@@ -125,50 +125,50 @@ C {devices/lab_pin.sym} -640 -120 2 1 {name=p12 sig_type=std_logic lab=Y}
 C {devices/lab_pin.sym} -640 -200 2 1 {name=p14 sig_type=std_logic lab=X}
 C {devices/lab_pin.sym} -260 -210 2 0 {name=p15 sig_type=std_logic lab=F}
 C {sg13g2_pr/sg13_lv_nmos.sym} -600 -200 0 0 {name=M1
-w=\{w_N_AND\}
-l=\{l_N_AND\}
+w= 0.15u
+l= 0.13u
 nf=1
-m=\{mult\}
+m= 2
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -350 -250 0 0 {name=M2
-w=\{w_P_AND\}
-l=\{l_P_AND\}
+w = 0.15u
+l= 0.13u
 nf=1
-m=\{mult*3\}
+m = 3
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {sg13g2_pr/sg13_lv_nmos.sym} -600 -120 0 0 {name=M3
-w=\{w_N_AND\}
-l=\{l_N_AND\}
-nf=1
-m=\{mult\}
-model=sg13_lv_nmos
-spiceprefix=X
-}
 C {sg13g2_pr/sg13_lv_nmos.sym} -350 -170 0 0 {name=M4
-w=\{w_N_AND\}
-l=\{l_N_AND\}
+w = 0.15u
+l = 0.13u
 nf=1
-m=\{mult\}
+m = 1
 model=sg13_lv_nmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -530 -310 0 0 {name=M5
-w=\{w_P_AND\}
-l=\{l_P_AND\}
+w = 0.15u
+l = 0.13u
 nf=1
-m=\{mult*3\}
+m=3
 model=sg13_lv_pmos
 spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -650 -310 0 0 {name=M6
-w=\{w_P_AND\}
-l=\{l_P_AND\}
+w = 0.15u
+l = 0.13u
 nf=1
-m=\{mult*3\}
+m=3
 model=sg13_lv_pmos
+spiceprefix=X
+}
+C {sg13g2_pr/sg13_lv_nmos.sym} -600 -120 0 0 {name=M3
+w= 0.15u
+l= 0.13u
+nf=1
+m= 2
+model=sg13_lv_nmos
 spiceprefix=X
 }

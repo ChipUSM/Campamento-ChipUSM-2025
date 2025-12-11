@@ -91,24 +91,7 @@ C {launcher.sym} -510 -460 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/TB_DCDCBuck.raw tran"
 }
-C {code.sym} -1210 -320 0 0 {name=GD_Param only_toplevel=false 
-
-value="
-.param temp=27
-
-.param mult_1 = 1
-.param mult_2 = 10
-.param mult_3 = 30
-.param mult_4 = 250
-
-.param l = 0.15
-*.param l = 0.3
-.param w = 0.42
-
-
-
-"}
-C {code.sym} -920 -320 0 0 {name=Sim_Param only_toplevel=false 
+C {code.sym} -870 -320 0 0 {name=Sim_Param only_toplevel=false 
 
 value="
 .param Vin = 3.3
@@ -122,20 +105,21 @@ value="
 
 
 *.param fsw = 10Meg
-.param fsw = 8.4Meg
+*.param fsw = 8.4Meg
+.param fsw = 5Meg
 *.param fsw = 1Meg
 
 .param Vo = 1.2
-.param Io = 0.5
+.param Io = 1
 .param rI = 0.3
 .param rV = 0.1
 .param T = 1/fsw
 
-.param D = 1-((Vo+0.05)/(Vin-0.03))
+.param D = 1-((Vo+0.07)/(Vin-0.03))
 .param TR = 1n
 .param TF = 1n
-.param TdR = 1.5n
-.param TdF = 1.5n
+.param TdR = 1.7n
+.param TdF = 1.7n
 
 *Filtro
 .param L = Vin/(4*Io*rI*fsw)
@@ -143,9 +127,9 @@ value="
 .param C = rI/(8*rV*R*fsw)
 
 *NOL 
-.param C_del = 0.1p
-.param R_del_rise = TdR/(C_del)
-.param R_del_fall = TdF/(C_del)
+.param C_del = 0.28f
+.param R_del_rise = TdR/(10*C_del)
+.param R_del_fall = TdF/(10*C_del)
 
 *.option temp = 125
 *.option temp = -40
@@ -167,20 +151,20 @@ C {lab_pin.sym} -306 -150 0 1 {name=p15 sig_type=std_logic lab=Vg_M1}
 C {lab_pin.sym} -296 80 0 1 {name=p16 sig_type=std_logic lab=Vg_M2}
 C {ammeter.sym} -400 -240 0 0 {name=V_Igd1 savecurrent=true spice_ignore=0}
 C {ammeter.sym} -400 -10 0 0 {name=V_Igd2 savecurrent=true spice_ignore=0}
-C {devices/code.sym} -1320 -170 0 0 {name=Tran_sim only_toplevel=false spice_ignore=false
+C {devices/code.sym} -1330 -170 0 0 {name=Tran_sim only_toplevel=false spice_ignore=false
 
 value="
 .save all
 .param tau = 4*L/R
 .csparam tau = \{tau\}
-.param SimTime = tau+10*T
+.param SimTime = tau+20*T
 .csparam Sim_end = \{SimTime\}
 .csparam T = \{T\}
 .csparam L = \{L\}
 .csparam C = \{C\}
 .csparam R = \{R\}
 
-.tran 100n \{SimTime\} uic
+.tran 0.1n \{SimTime\} uic
 
 .control
 
@@ -242,8 +226,8 @@ plot Po P_in
 *plot P_M1 P_M2
 plot v(x1.Vc)
 plot v(Vg_M1) v(Vg_M2)
-plot Ron_M1 Ron_M2
-write TB_DCDCBuck.raw
+*plot Ron_M1 Ron_M2
+*write TB_DCDCBuck.raw
 .endc
 
 
@@ -522,28 +506,6 @@ plot loss_GD_sweep vs fsw_sweep
 
 .end
 "}
-C {../GD/GD_vto1p1.sym} -450 -110 0 0 {name=X4}
-C {code.sym} -1390 -320 0 0 {name=POWER_MOS_Param only_toplevel=false 
-
-value="
-*M1 hvPMOS
-.param temp=27
-.param mult_M1 = 12000
-.param w_M1 =10u 
-.param l_M1 = 0.4u
-.param ng_M1 = 1
-
-*M2 hvNMOS
-.param mult_M2 = 4000
-.param w_M2 =10u 
-.param l_M2 =0.45u
-.param ng_M2 =1
-
-
-
-
-"}
-C {../DCDCBuck/DCDCBuck_vto1p1.sym} -10 -170 0 0 {name=X1}
 C {code.sym} -1210 -460 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
@@ -564,7 +526,6 @@ value="
 *.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
-C {../GD/GD_vto1p1.sym} -450 120 0 0 {name=X2}
 C {ammeter.sym} -430 -240 0 1 {name=V_Igd1_dig savecurrent=true spice_ignore=0}
 C {ammeter.sym} -430 -10 0 1 {name=V_Igd2_dig savecurrent=true spice_ignore=0}
 C {../NOL/NOL.sym} -760 -10 0 0 {name=X3}
@@ -574,28 +535,11 @@ C {lab_pin.sym} -660 -220 0 0 {name=p19 sig_type=std_logic lab=Vdd}
 C {ammeter.sym} -660 -190 0 1 {name=V_Inol savecurrent=true spice_ignore=0}
 C {gnd.sym} -660 -30 0 0 {name=l8 lab=GND}
 C {lab_pin.sym} -750 -90 0 0 {name=p7 sig_type=std_logic lab=V_PWM}
-C {code.sym} -1100 -320 0 0 {name=NOR_INV_Parameters only_toplevel=false 
-
-value="
-.param temp=27
-.param mult = 1
-
-.param w_P_NOR =0.15u
-.param l_P_NOR = 0.15u
-
-.param w_N_NOR =0.15u
-.param l_N_NOR =0.15u
-
-.param w_inv =0.15u
-.param l_inv =0.15u
-
-
-"}
-C {code.sym} -1390 -460 0 0 {name=Sim_Config only_toplevel=false 
+C {code.sym} -1390 -470 0 0 {name=Sim_Config only_toplevel=false 
 
 value="
 
-.option KLU
+*.option KLU
 *.option itl4=100
 .option method=gear
 *.option maxord=2
@@ -607,5 +551,68 @@ value="
 *.option vntol=1e-4
 *.option event
 *.option gmin=1e-10
-*.option cshunt=1e-13
+*.option cshunt=0.28f
+.option cshunt=0.14f
+*.option cshunt=0.56f
+"}
+C {code.sym} -1020 -320 0 0 {name=NOR_Parameters only_toplevel=false 
+
+value="
+.param temp=27
+.param mult = 1
+
+.param multP_NOR = 1
+.param multN_NOR = 6
+
+"}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM1.sym} -450 -110 0 0 {name=X2}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/GD/GDM2.sym} -450 120 0 0 {name=X4}
+C {/workspaces/usm-vlsi-tools/shared_xserver/simulations/Projects/IHP/ChipUSM_AnalogTrack25/xschem/DCDCBuck/DCDC_Buck.sym} -10 -170 0 0 {name=X1}
+C {code.sym} -1210 -320 0 0 {name=GateDriver_Parameters only_toplevel=false 
+
+value="
+.param temp=27
+
+.param w_hv = 0.3u
+*.param w_hv = 0.45u
+.param l_hv = 0.45u
+*.param l_hv = 0.3u
+
+.param mult1_GD1 = 1
+.param mult2_GD1 = 4
+.param mult3_GD1 = 14
+.param mult4_GD1 = 51
+.param mult5_GD1 = 190
+.param mult6_GD1 = 704
+.param mult7_GD1 = 2614
+.param mult8_GD1 = 9700
+
+.param mult1_GD2 = 1
+.param mult2_GD2 = 3
+.param mult3_GD2 = 11
+.param mult4_GD2 = 37
+.param mult5_GD2 = 124
+.param mult6_GD2 = 413
+.param mult7_GD2 = 1378
+.param mult8_GD2 = 4597
+
+
+"}
+C {code.sym} -1380 -320 0 0 {name=POWER_MOS_Param only_toplevel=false spice_ignore=0
+
+value="
+.param mult = 95238
+.param temp=27
+.param mult_M1 = 3*mult
+.param w_M1 =0.3u 
+.param l_M1 = 0.45u
+.param ng_M1 = 1
+
+.param mult_M2 = 1*mult
+.param w_M2 =0.3u 
+.param l_M2 =0.45u
+.param ng_M2 =1
+
+
+
 "}

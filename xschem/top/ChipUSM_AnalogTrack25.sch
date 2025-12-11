@@ -67,8 +67,8 @@ T {- Vo = 1.2 [V]
 - fsw = 5 [MHz] => Justificar.} -2840 -1970 0 0 0.4 0.4 {}
 T {Logic Gates} -4785 -1590 0 0 0.8 0.8 {}
 C {title.sym} -4280 -1200 0 0 {name=l1 author="Andrés Martínez"}
-C {../DCDCBuck/TB_hvPMOS_charact.sym} -4320 -1490 0 0 {name=X0}
-C {../DCDCBuck/TB_hvNMOS_charact.sym} -4320 -1440 0 0 {name=X1}
+C {../DCDCBuck/TB_hvPMOS_charact.sym} -4050 -1450 0 0 {name=X0}
+C {../DCDCBuck/TB_hvNMOS_charact.sym} -4050 -1495 0 0 {name=X1}
 C {../DCDCBuck/TB_hvMOS_POWER_Sizing.sym} -3745 -1420 0 0 {name=X2}
 C {code.sym} -3550 -1730 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
@@ -90,8 +90,6 @@ value="
 *.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 *.lib $::SG13G2_MODELS/diodes.lib
 "}
-C {../DCDCBuck/TB_hvNMOS_cgate_ext.sym} -3745 -1440 0 0 {name=X4}
-C {../DCDCBuck/TB_hvPMOS_cgate_ext.sym} -3745 -1390 0 0 {name=X6}
 C {../GD/TB_DCDCBuck_GD.sym} -3420 -1220 0 0 {name=X9}
 C {../NOL/TB_NOL.sym} -3150 -1320 0 0 {name=X13}
 C {../PD/TB_PhaseDetector.sym} -2835 -1370 0 0 {name=X15}
@@ -120,14 +118,14 @@ value="
 *.option gmin=1e-10
 .option cshunt=1e-13
 "}
-C {../VCO/TB_VCO_Design_V0.sym} -2550 -1420 0 0 {name=X17}
+C {../VCO/TB_VCO_Design_V0.sym} -2555 -1420 0 0 {name=X17}
 C {../Manual_Instrucciones/Manual_Ngspice_Xschem.sym} -3060 -1640 0 0 {name=X22}
 C {../Manual_Instrucciones/GuiaDiseño.sym} -3060 -1580 0 0 {name=X23}
 C {../LogicGates/DC_NOT.sym} -4690 -1435 0 0 {name=x10}
 C {../LogicGates/TRAN_NOT.sym} -4700 -1495 0 0 {name=x11}
 C {../LogicGates/TB_NAND.sym} -4700 -1390 0 0 {name=x12}
-C {../CMOS_Char/Vds_HvMOS.sym} -4330 -1405 0 0 {name=x24}
-C {../CMOS_Char/Vgs_HvMOS.sym} -4360 -1360 0 0 {name=x25}
+C {../CMOS_Char/Vds_HvMOS.sym} -4330 -1505 0 0 {name=x24}
+C {../CMOS_Char/Vgs_HvMOS.sym} -4360 -1460 0 0 {name=x25}
 C {/foss/designs/Campamento-ChipUSM-2025/xschem/LogicGates/TRAN_NOT.sym} -4700 -1495 0 0 {name=x11}
 C {../LogicGates/TB_NAND.sym} -4700 -1390 0 0 {name=x12}
 C {../DCDCBuck/TB_hvNMOS_cgate_ext.sym} -3420 -1490 0 0 {name=X26}
@@ -135,5 +133,8 @@ C {../DCDCBuck/TB_hvPMOS_cgate_ext.sym} -3420 -1440 0 0 {name=X27}
 C {../DigitalGates/TB_NOR.sym} -3150 -1420 0 0 {name=X28}
 C {../DigitalGates/TB_INV.sym} -3150 -1370 0 0 {name=X29}
 C {../DigitalGates/TB_AND.sym} -2835 -1420 0 0 {name=X14}
-C {../CMOS_Char/Cap_HvMOS.sym} -4080 -1500 0 0 {name=x21}
-C {../CMOS_Char/Ron_test.sym} -4070 -1450 0 0 {name=x19}
+C {../CMOS_Char/Cap_HvMOS.sym} -4350 -1410 0 0 {name=x21}
+C {../CMOS_Char/Ron_test.sym} -4340 -1350 0 0 {name=x19}
+C {../DCDCBuck/TB_powerNMOS_cgate_ext.sym} -3745 -1440 0 0 {name=X4}
+C {../DCDCBuck/TB_powerPMOS_cgate_ext.sym} -3745 -1395 0 0 {name=X6}
+C {../PD/TB_DCDCBuck_GD_NOL_PD_IHP.sym} -2835 -1320 0 0 {name=X30}

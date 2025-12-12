@@ -1,0 +1,22 @@
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    # Magic always fails DRC, so we disable it here
+    Magic.DRC: null
+
+DESIGN_NAME: adder8
+VERILOG_FILES: dir::src/*.sv
+CLOCK_PORT: clock
+CLOCK_PERIOD: 100
+USE_SLANG: true
+
+# Floorplanning
+FP_SIZING: absolute
+DIE_AREA:  [   0.00,   0.00, 500.00, 500.00 ]
+CORE_AREA: [ 100, 100, 400, 400 ]
+FP_OBSTRUCTIONS: 
+- [100, 100, 150, 150]
+
+# PDN
+PDN_CORE_RING: true

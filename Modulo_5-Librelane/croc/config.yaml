@@ -1,12 +1,141 @@
+DESIGN_NAME: croc_chip
+CLOCK_PORT: clk_i
+CLOCK_PERIOD: 100
+USE_SLANG: true
+
+FP_SIZING: absolute
+DIE_AREA:  [   0.00,   0.00, 2200.00, 2200.00]
+CORE_AREA: [ 362, 362, 1838, 1838]
+PL_TARGET_DENSITY_PCT: 50
+
+# Bondpad is not yet included in the PDK
+EXTRA_GDS:
+- dir::ip/bondpad_70x70/bondpad_70x70.gds
+
+EXTRA_LEFS:
+- dir::ip/bondpad_70x70/bondpad_70x70.lef
+
+SLANG_ARGUMENTS: ['--allow-use-before-declare']
+
+LINTER_DISABLE_WARNINGS:
+- ASSIGNIN
+
+MACROS:
+  RM_IHPSG13_1P_256x64_c2_bm_bist:
+
+    gds: 
+    - dir::sram/RM_IHPSG13_1P_256x64_c2_bm_bist.gds
+    lef: 
+    - pdk_dir::libs.ref/sg13g2_sram/lef/RM_IHPSG13_1P_256x64_c2_bm_bist.lef 
+    nl: 
+    - pdk_dir::libs.ref/sg13g2_sram/verilog/RM_IHPSG13_1P_256x64_c2_bm_bist.v
+    lib: 
+      "nom_typ_1p20V_25C": 
+      - pdk_dir::libs.ref/sg13g2_sram/lib/RM_IHPSG13_1P_256x64_c2_bm_bist_typ_1p20V_25C.lib
+      "nom_fast_1p32V_m40C": 
+      - pdk_dir::libs.ref/sg13g2_sram/lib/RM_IHPSG13_1P_256x64_c2_bm_bist_fast_1p32V_m55C.lib
+      "nom_slow_1p08V_125C": 
+      - pdk_dir::libs.ref/sg13g2_sram/lib/RM_IHPSG13_1P_256x64_c2_bm_bist_slow_1p08V_125C.lib
+    instances:
+      i_croc_soc.i_croc.gen_sram_bank[0].i_sram.gen_512x32xBx1.i_cut:
+        location: [1575, 700]
+        orientation: E
+      i_croc_soc.i_croc.gen_sram_bank[1].i_sram.gen_512x32xBx1.i_cut:
+        location: [1710, 700]
+        orientation: E
+
+PAD_SOUTH: [
+  pad_clk_i,
+  pad_rst_ni,
+  pad_ref_clk_i,
+  pad_jtag_tck_i,
+  pad_jtag_trst_ni,
+  pad_jtag_tms_i,
+  pad_jtag_tdi_i,
+  pad_jtag_tdo_o,
+  pad_uart_rx_i,
+  pad_uart_tx_o,
+  pad_fetch_en_i,
+  pad_status_o,
+  pad_gpio0_io,
+  pad_gpio1_io,
+  pad_gpio2_io,
+  pad_gpio3_io,
+]
+
+PAD_EAST: [
+  pad_gpio4_io,
+  pad_gpio5_io,
+  pad_gpio6_io,
+  pad_gpio7_io,
+  pad_gpio8_io,
+  pad_gpio9_io,
+  pad_gpio10_io,
+  pad_gpio11_io,
+  pad_gpio12_io,
+  pad_gpio13_io,
+  pad_gpio14_io,
+  pad_gpio15_io,
+  pad_gpio16_io,
+  pad_gpio17_io,
+  pad_gpio18_io,
+  pad_gpio19_io,
+]
+
+PAD_NORTH: [
+  pad_gpio20_io,
+  pad_gpio21_io,
+  pad_gpio22_io,
+  pad_gpio23_io,
+  pad_gpio24_io,
+  pad_gpio25_io,
+  pad_gpio26_io,
+  pad_gpio27_io,
+  pad_gpio28_io,
+  pad_gpio29_io,
+  pad_gpio30_io,
+  pad_gpio31_io,
+  pad_unused0_o,
+  pad_unused1_o,
+  pad_unused2_o,
+  pad_unused3_o,
+]
+
+PAD_WEST: [
+  pad_vdd0,
+  pad_vss0,
+  pad_vdd1,
+  pad_vss1,
+  pad_vdd2,
+  pad_vss2,
+  pad_vdd3,
+  pad_vss3,
+  pad_vddio0,
+  pad_vssio0,
+  pad_vddio1,
+  pad_vssio1,
+  pad_vddio2,
+  pad_vssio2,
+  pad_vddio3,
+  pad_vssio3,
+]
+
+
 meta:
   version: 3
-  flow: Classic
+  flow: Chip
   substituting_steps:
     Checker.YosysSynthChecks: null
     # Magic always fails DRC, so we disable it here
     Magic.DRC: null
+    KLayout.DRC: null
+    Checker.DisconnectedPins: null
+    KLayout.Antenna: null
+    KLayout.Filler: null
+    Magic.SpiceExtraction: null
+    Checker.KLayoutDensity: null
+    Netgen.LVS: null
 
-DESIGN_NAME: croc_domain
 VERILOG_DEFINES:
 - TARGET_ASIC
 - TARGET_IHP13
@@ -176,4 +305,7 @@ VERILOG_FILES:
 - ../../croc/rtl/gpio/gpio_reg_top.sv 
 - ../../croc/rtl/gpio/gpio.sv
 - ../../croc/rtl/croc_domain.sv
+- ../../croc/rtl/croc_chip.sv
+- ../../croc/rtl/croc_soc.sv
+- ../../croc/rtl/user_domain.sv
 
